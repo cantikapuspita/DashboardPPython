@@ -1,0 +1,7 @@
+[theme]
+base = "dark"
+primaryColor = "#C74DED"         # Warna ungu neon
+backgroundColor = "#0e123f"      # Warna latar belakang gelap
+secondaryBackgroundColor = "#283061"  # Untuk sidebar dan panel
+textColor = "#FFFFFF"            # Warna teks putih
+font = "sans serif"              # Gunakan font modern
