@@ -94,34 +94,34 @@ try:
     )
 except:
     st.sidebar.write('⚠️ Payment - Create column to get the filter')
-
-
-data_selection = data[
-    (data['City'].isin(city_sb)) &
-    (data['Customer type'].isin(customer_sb)) &
-    (data['Gender'].isin(gender_sb)) &
-    (data['Product line'].isin(productline_sb)) &
-    (data['Payment'].isin(payment_sb))
-]
-
-#Month Filter
-col1, col2 = st.columns((2))
 try:
     data["Date"] = pd.to_datetime(data["Date"])
 
-        # Getting the min and max date 
-    startDate = pd.to_datetime(data["Date"]).min()
-    endDate = pd.to_datetime(data["Date"]).max()
+    # Ambil rentang tanggal dari data
+    startDate = data["Date"].min()
+    endDate = data["Date"].max()
 
+    # Input date filter
+    col1, col2 = st.columns((2))
     with col1:
         date1 = pd.to_datetime(st.date_input("Start Date", startDate))
-
     with col2:
         date2 = pd.to_datetime(st.date_input("End Date", endDate))
 
-    data = data[(data["Date"] >= date1) & (data["Date"] <= date2)]
-except:
+    # Filter data dengan semua kondisi termasuk tanggal
+    data_selection = data[
+        (data['City'].isin(city_sb)) &
+        (data['Customer type'].isin(customer_sb)) &
+        (data['Gender'].isin(gender_sb)) &
+        (data['Product line'].isin(productline_sb)) &
+        (data['Payment'].isin(payment_sb)) &
+        (data['Date'] >= date1) &
+        (data['Date'] <= date2)
+    ]
+
+except Exception as e:
     st.write('⚠️ Create Date Transaction column to get a data filter')
+    st.write(f"Error: {e}")
 
 st.markdown("---")
 
